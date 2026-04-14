@@ -1,4 +1,4 @@
-# SAE 2.02 - Graphes de dépendances
+# SAE 2.01 - GettingStarted
 
 ## Équipe
 - Sadi ALAM
