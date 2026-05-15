@@ -4,20 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jeu de Memory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/app.js" type="module"></script>
 </head>
 <body>
-<header><h1>Jeu de Memory</h1></header>
 
-<div class="setup-form">
-  <h2>Démarrer une nouvelle partie</h2>
+<!-- FORMULAIRE D'ACCUEIL -->
+<div class="setup-form" id="setup-form">
+  <div class="form-card">
+    <div class="form-header">
+      <div class="logo">🃏</div>
+      <h1>Memory</h1>
+      <p class="subtitle">Trouve toutes les paires avant la fin du temps !</p>
+    </div>
 
+    <div class="form-body">
+      <!-- Nom du joueur -->
+      <div class="field">
+        <label for="player-name">Ton pseudo</label>
+        <input
+                type="text"
+                id="player-name"
+                placeholder="Entre ton pseudo..."
+                maxlength="20"
+                autocomplete="off"
+        >
+      </div>
+
+      <!-- Niveau de difficulté -->
+      <div class="field">
+        <label for="difficulty">Niveau de difficulté</label>
+        <div class="select-wrapper">
+          <select id="difficulty">
+            <option value="4">Facile — 4 paires</option>
+            <option value="5">Moyen — 5 paires</option>
+            <option value="6" selected>Difficile — 6 paires</option>
+            <option value="8">Expert — 8 paires</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Collection d'images -->
+      <div class="field">
+        <label for="collection">Collection d'images</label>
+        <div class="select-wrapper">
+          <select id="collection">
+            <option value="animaux">🐾 Animaux</option>
+            <option value="fruits">🍎 Fruits</option>
+            <option value="sport">⚽ Sport</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bouton de démarrage -->
+      <button class="btn-start" id="btn-start">
+        <span>Jouer</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      <!-- Message d'erreur -->
+      <p class="error-msg" id="error-msg"></p>
+    </div>
+  </div>
 </div>
 
-<div class="game-area hidden">
-  <div class="game-area-header"></div>
-  <div class="game-board"></div>
+<!-- ZONE DE JEU (cachée au départ) -->
+<div class="game-area hidden" id="game-area">
+  <div class="game-area-header">
+    <div class="game-info">
+      <span id="player-display"></span>
+      <span id="difficulty-display"></span>
+    </div>
+    <div class="game-timer" id="timer">⏱ 00:00</div>
+    <button class="btn-abandon" id="btn-abandon">Abandonner</button>
+  </div>
+  <div class="game-board" id="game-board"></div>
 </div>
+
 </body>
 </html>
