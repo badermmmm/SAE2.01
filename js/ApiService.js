@@ -1,13 +1,14 @@
-import {MEMORY_URL} from './config.js';
+import { MEMORY_URL } from './config.js';
 
 /**
  * Service pour centraliser les appels API du jeu Memory.
  */
 export class ApiService {
+
   /**
    * Crée une nouvelle partie sur le serveur.
    * @param {string} pseudo nom du joueur
-   * @param {number} difficulty niveau de difficulé
+   * @param {number} difficulty niveau de difficulté
    * @returns {Promise<GameReturn>}
    */
   static async createGame(pseudo, difficulty) {
@@ -17,7 +18,8 @@ export class ApiService {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // compléter le body
+        name: pseudo,
+        difficulty: difficulty
       })
     });
 
