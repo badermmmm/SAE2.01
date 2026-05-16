@@ -14,13 +14,13 @@ body {
   min-height: 100vh;
 }
 
-.hidden {
+.cache {
   display: none;
 }
 
 /* --- Formulaire --- */
 
-.setup-form {
+.formulaire-accueil {
   background-color: white;
   border-radius: 10px;
   padding: 30px;
@@ -29,7 +29,7 @@ body {
   text-align: center;
 }
 
-.form-header {
+.entete {
   margin-bottom: 25px;
 }
 
@@ -43,19 +43,19 @@ h1 {
   margin: 8px 0 5px;
 }
 
-.subtitle {
+.sous-titre {
   font-size: 14px;
   color: #888;
 }
 
-.form-body {
+.corps-formulaire {
   display: flex;
   flex-direction: column;
   gap: 15px;
   text-align: left;
 }
 
-.field label {
+.champ label {
   display: block;
   font-size: 14px;
   font-weight: bold;
@@ -63,8 +63,8 @@ h1 {
   color: #333;
 }
 
-.field input,
-.field select {
+.champ input,
+.champ select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -72,22 +72,27 @@ h1 {
   font-size: 15px;
 }
 
-.field input:focus,
-.field select:focus {
+.champ input:focus,
+.champ select:focus {
   outline: none;
   border-color: #3b5bdb;
 }
 
-.select-wrapper {
+.conteneur-select {
   position: relative;
 }
 
-.select-wrapper select {
+.conteneur-select select {
   appearance: none;
   -webkit-appearance: none;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
 }
 
-.select-wrapper::after {
+.conteneur-select::after {
   content: '▾';
   position: absolute;
   right: 12px;
@@ -97,7 +102,7 @@ h1 {
   pointer-events: none;
 }
 
-.btn-start {
+.bouton-jouer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,11 +119,11 @@ h1 {
   margin-top: 5px;
 }
 
-.btn-start:hover {
+.bouton-jouer:hover {
   background-color: #2f4cbf;
 }
 
-.error-msg {
+.message-erreur {
   color: red;
   font-size: 13px;
   text-align: center;
@@ -127,13 +132,13 @@ h1 {
 
 /* --- Zone de jeu --- */
 
-.game-area {
+.zone-de-jeu {
   width: 100%;
   max-width: 900px;
   padding: 20px;
 }
 
-.game-area-header {
+.entete-jeu {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -144,7 +149,7 @@ h1 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.game-info {
+.infos-joueur {
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -152,18 +157,18 @@ h1 {
   gap: 3px;
 }
 
-.game-info span:first-child {
+.infos-joueur span:first-child {
   font-weight: bold;
   color: #222;
 }
 
-.game-timer {
+.chronometre {
   font-size: 22px;
   font-weight: bold;
   color: #3b5bdb;
 }
 
-.btn-abandon {
+.bouton-abandon {
   background-color: white;
   border: 1px solid #f44336;
   border-radius: 6px;
@@ -173,12 +178,12 @@ h1 {
   cursor: pointer;
 }
 
-.btn-abandon:hover {
+.bouton-abandon:hover {
   background-color: #fff0f0;
 }
 
 /* Plateau de jeu */
-.game-board {
+.plateau-de-jeu {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;

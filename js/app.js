@@ -62,8 +62,8 @@ async function demarrerPartie() {
     affichageDifficulte.textContent = `🃏 ${difficulte} paires`;
 
     // On cache le formulaire et on montre le jeu
-    formulaire.classList.add('hidden');
-    zoneDeJeu.classList.remove('hidden');
+    formulaire.classList.add('cache');
+    zoneDeJeu.classList.remove('cache');
 
     lancerChronometre();
     initialiserPlateau(parseInt(difficulte), collection);
@@ -119,8 +119,8 @@ async function abandonnerPartie() {
   await terminerPartie(pairesRestantes);
 
   // Retour au formulaire
-  zoneDeJeu.classList.add('hidden');
-  formulaire.classList.remove('hidden');
+  zoneDeJeu.classList.add('cache');
+  formulaire.classList.remove('cache');
   reinitialiserFormulaire();
 }
 

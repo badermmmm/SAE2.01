@@ -12,17 +12,17 @@
 <body>
 
 <!-- FORMULAIRE D'ACCUEIL -->
-<div class="setup-form" id="setup-form">
-  <div class="form-card">
-    <div class="form-header">
+<div class="formulaire-accueil" id="setup-form">
+  <div class="carte-formulaire">
+    <div class="entete">
       <div class="logo">🃏</div>
       <h1>Memory</h1>
-      <p class="subtitle">Trouve toutes les paires avant la fin du temps !</p>
+      <p class="sous-titre">Trouve toutes les paires avant la fin du temps !</p>
     </div>
 
-    <div class="form-body">
+    <div class="corps-formulaire">
       <!-- Nom du joueur -->
-      <div class="field">
+      <div class="champ">
         <label for="player-name">Ton pseudo</label>
         <input
                 type="text"
@@ -34,9 +34,9 @@
       </div>
 
       <!-- Niveau de difficulté -->
-      <div class="field">
+      <div class="champ">
         <label for="difficulty">Niveau de difficulté</label>
-        <div class="select-wrapper">
+        <div class="conteneur-select">
           <select id="difficulty">
             <option value="4">Facile — 4 paires</option>
             <option value="5">Moyen — 5 paires</option>
@@ -47,9 +47,9 @@
       </div>
 
       <!-- Collection d'images -->
-      <div class="field">
+      <div class="champ">
         <label for="collection">Collection d'images</label>
-        <div class="select-wrapper">
+        <div class="conteneur-select">
           <select id="collection">
             <option value="animaux">🐾 Animaux</option>
             <option value="fruits">🍎 Fruits</option>
@@ -59,7 +59,7 @@
       </div>
 
       <!-- Bouton de démarrage -->
-      <button class="btn-start" id="btn-start">
+      <button class="bouton-jouer" id="btn-start">
         <span>Jouer</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path d="M8 5v14l11-7z"/>
@@ -67,22 +67,22 @@
       </button>
 
       <!-- Message d'erreur -->
-      <p class="error-msg" id="error-msg"></p>
+      <p class="message-erreur" id="error-msg"></p>
     </div>
   </div>
 </div>
 
 <!-- ZONE DE JEU (cachée au départ) -->
-<div class="game-area hidden" id="game-area">
-  <div class="game-area-header">
-    <div class="game-info">
+<div class="zone-de-jeu cache" id="game-area">
+  <div class="entete-jeu">
+    <div class="infos-joueur">
       <span id="player-display"></span>
       <span id="difficulty-display"></span>
     </div>
-    <div class="game-timer" id="timer">⏱ 00:00</div>
-    <button class="btn-abandon" id="btn-abandon">Abandonner</button>
+    <div class="chronometre" id="timer">⏱ 00:00</div>
+    <button class="bouton-abandon" id="btn-abandon">Abandonner</button>
   </div>
-  <div class="game-board" id="game-board"></div>
+  <div class="plateau-de-jeu" id="game-board"></div>
 </div>
 
 </body>
