@@ -148,16 +148,153 @@ function mettreAJourAffichageTemps() {
 
 // ── Plateau de jeu ────────────────────────────────────────────────────────────
 
+// Images disponibles par collection (émojis utilisés comme "images")
+const collections = {
+  animaux: ['🐶', '🐱', '🐸', '🐼', '🦊', '🐨', '🐯', '🦁'],
+  fruits:  ['🍎', '🍌', '🍓', '🍇', '🍉', '🍑', '🥝', '🍋'],
+  sport:   ['⚽', '🏀', '🎾', '🏈', '🏐', '🎱', '🏓', '🥊']
+};
+
+// Cartes actuellement retournées (en attente de vérification)
+let cartesRetournees = [];
+
+// Nombre de paires trouvées
+let pairesTouvees = 0;
+
+// Nombre total de paires dans la partie
+let totalPaires = 0;
+
+// Empêche de cliquer pendant la vérification d'une paire
+let verificationEnCours = false;
+
 function initialiserPlateau(nbPaires, collection) {
   const plateau = document.getElementById('game-board');
   plateau.innerHTML = '';
-  // TODO : sera complété lors de l'étape suivante (logique des cartes)
-  plateau.textContent = `Plateau de jeu — ${nbPaires} paires (collection : ${collection})`;
+
+  // Remise à zéro
+  cartesRetournees  = [];
+  pairesTouvees     = 0;
+  totalPaires       = nbPaires;
+  verificationEnCours = false;
+
+  // On récupère les images de la collection et on en prend nbPaires
+  const images = collections[collection].slice(0, nbPaires);
+
+  // On crée les paires (chaque image apparaît 2 fois) puis on mélange
+  const cartes = melangerTableau([...images, ...images]);
+
+  // On ajuste le nombre de colonnes selon la difficulté
+  if (nbPaires <= 4) {
+    plateau.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  } else if (nbPaires <= 6) {
+    plateau.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  } else {
+    plateau.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  }
+
+  // On crée et ajoute chaque carte dans le plateau
+  cartes.forEach((image, index) => {
+    const carte = creerCarte(image, index);
+    plateau.appendChild(carte);
+  });
 }
 
+// Crée une carte HTML
+function creerCarte(image, index) {
+  const carte = document.createElement('div');
+  carte.classList.add('carte');
+  carte.dataset.image = image;
+  carte.dataset.index = index;
+
+  // Face cachée (dos de la carte)
+  const dosCarte = document.createElement('div');
+  dosCarte.classList.add('dos-carte');
+  dosCarte.textContent = '🃏';
+
+  // Face visible (l'image)
+  const faceCarte = document.createElement('div');
+  faceCarte.classList.add('face-carte');
+  faceCarte.textContent = image;
+
+  carte.appendChild(dosCarte);
+  carte.appendChild(faceCarte);
+
+  carte.addEventListener('click', () => clicSurCarte(carte));
+
+  return carte;
+}
+
+// Quand le joueur clique sur une carte
+function clicSurCarte(carte) {
+  // On ignore si : vérification en cours, carte déjà retournée, ou déjà trouvée
+  if (verificationEnCours) return;
+  if (carte.classList.contains('retournee')) return;
+  if (carte.classList.contains('trouvee')) return;
+
+  // On retourne la carte
+  carte.classList.add('retournee');
+  cartesRetournees.push(carte);
+
+  // Si c'est la 2ème carte retournée, on vérifie la paire
+  if (cartesRetournees.length === 2) {
+    verifierPaire();
+  }
+}
+
+// Vérifie si les 2 cartes retournées forment une paire
+function verifierPaire() {
+  verificationEnCours = true;
+
+  const [carte1, carte2] = cartesRetournees;
+
+  if (carte1.dataset.image === carte2.dataset.image) {
+    // C'est une paire ! On les marque comme trouvées
+    carte1.classList.add('trouvee');
+    carte2.classList.add('trouvee');
+    pairesTouvees++;
+    cartesRetournees  = [];
+    verificationEnCours = false;
+
+    // Est-ce que toutes les paires sont trouvées ?
+    if (pairesTouvees === totalPaires) {
+      gagnantPartie();
+    }
+  } else {
+    // Ce n'est pas une paire, on les remet face cachée après 1 seconde
+    setTimeout(() => {
+      carte1.classList.remove('retournee');
+      carte2.classList.remove('retournee');
+      cartesRetournees  = [];
+      verificationEnCours = false;
+    }, 1000);
+  }
+}
+
+// Le joueur a trouvé toutes les paires
+async function gagnantPartie() {
+  arreterChronometre();
+  await terminerPartie(0);
+
+  setTimeout(() => {
+    alert(`🎉 Bravo ! Tu as trouvé toutes les paires en ${secondes} secondes !`);
+    zoneDeJeu.classList.add('cache');
+    formulaire.classList.remove('cache');
+    reinitialiserFormulaire();
+  }, 400);
+}
+
+// Retourne le nombre de paires pas encore trouvées
 function compterPairesRestantes() {
-  // TODO : sera implémenté avec la logique des cartes
-  return 0;
+  return totalPaires - pairesTouvees;
+}
+
+// Mélange un tableau (algorithme de Fisher-Yates)
+function melangerTableau(tableau) {
+  for (let i = tableau.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+  }
+  return tableau;
 }
 
 // ── Formulaire ────────────────────────────────────────────────────────────────
